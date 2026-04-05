@@ -1,0 +1,816 @@
+{
+  "name": "US Stock Market Analysis Bot (Groq Version)",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://api.twelvedata.com/time_series",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "symbol",
+              "value": "={{ $json.message.text }}"
+            },
+            {
+              "name": "interval",
+              "value": "1min"
+            },
+            {
+              "name": "outputsize",
+              "value": "15"
+            },
+            {
+              "name": "apikey",
+              "value": "9656368c46e041fe99639e217d105d5e"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e2f79bfd-5c8c-4587-8555-6ba957c9f178",
+      "name": "HTTP 1 Minutes"
+    },
+    {
+      "parameters": {
+        "url": "https://api.twelvedata.com/time_series",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "symbol",
+              "value": "={{ $json.message.text }}"
+            },
+            {
+              "name": "interval",
+              "value": "15min"
+            },
+            {
+              "name": "outputsize",
+              "value": "15"
+            },
+            {
+              "name": "apikey",
+              "value": "9656368c46e041fe99639e217d105d5e"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        192
+      ],
+      "id": "c046b10f-75e6-4072-8d13-fbf4e50deed1",
+      "name": "HTTP 15 Minutes"
+    },
+    {
+      "parameters": {
+        "url": "https://api.twelvedata.com/time_series",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "symbol",
+              "value": "={{ $json.message.text }}"
+            },
+            {
+              "name": "interval",
+              "value": "1h"
+            },
+            {
+              "name": "outputsize",
+              "value": "15"
+            },
+            {
+              "name": "apikey",
+              "value": "9656368c46e041fe99639e217d105d5e"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        384
+      ],
+      "id": "ce7ce6a6-4751-4564-9755-fd9c692623c8",
+      "name": "HTTP 1 Hour"
+    },
+    {
+      "parameters": {
+        "url": "https://newsapi.org/v2/everything",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "q",
+              "value": "={{ $json.message.text }}"
+            },
+            {
+              "name": "from",
+              "value": "={{ $today.minus({days:4}).toFormat('yyyy-MM-dd') }}"
+            },
+            {
+              "name": "apikey",
+              "value": "5f8fd9da8124485d9ec2b0ec73f06a19"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        448,
+        1136
+      ],
+      "id": "0d467e41-abee-4236-8f87-e92bb80b6e7b",
+      "name": "News API"
+    },
+    {
+      "parameters": {
+        "url": "https://api.twelvedata.com/dividends",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "symbol",
+              "value": "={{ $json.message.text }}"
+            },
+            {
+              "name": "apikey",
+              "value": "9656368c46e041fe99639e217d105d5e"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        576
+      ],
+      "id": "51314570-022a-45e7-8da9-6b451614badb",
+      "name": "HTTP Dividends"
+    },
+    {
+      "parameters": {
+        "url": "https://api.twelvedata.com/earnings",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "symbol",
+              "value": "={{ $json.message.text }}"
+            },
+            {
+              "name": "apikey",
+              "value": "9656368c46e041fe99639e217d105d5e"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        768
+      ],
+      "id": "19ed1b14-332f-4f33-9051-6dd49bc54a2f",
+      "name": "HTTP Earnings"
+    },
+    {
+      "parameters": {
+        "url": "https://api.twelvedata.com/statistics",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "symbol",
+              "value": "={{ $json.message.text }}"
+            },
+            {
+              "name": "apikey",
+              "value": "9656368c46e041fe99639e217d105d5e"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        960
+      ],
+      "id": "71352c1b-b49e-44b0-9c02-fe95c6e48799",
+      "name": "HTTP Statistics"
+    },
+    {
+      "parameters": {
+        "url": "https://api.twelvedata.com/profile",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "symbol",
+              "value": "={{ $json.message.text }}"
+            },
+            {
+              "name": "apikey",
+              "value": "9656368c46e041fe99639e217d105d5e"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        1520
+      ],
+      "id": "42bf6030-4897-4a9b-ad6d-a2f934782a7f",
+      "name": "HTTP Profile"
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        224,
+        176
+      ],
+      "id": "0e22c5f6-a074-4ae1-a757-1e376636f35e",
+      "name": "Merge Timeframes"
+    },
+    {
+      "parameters": {
+        "numberInputs": 4
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        224,
+        832
+      ],
+      "id": "9efc3f45-65ba-4781-9c34-6cab4e267d0d",
+      "name": "Merge Fundamentals"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        448,
+        192
+      ],
+      "id": "a1c81861-5032-484e-a04e-90d19283f927",
+      "name": "Aggregate Price Data"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        448,
+        864
+      ],
+      "id": "e33e9ab9-3143-4783-b3a0-204920ef341d",
+      "name": "Aggregate Fundamentals"
+    },
+    {
+      "parameters": {
+        "jsCode": "function normalize(values) {\n    if (!values || !Array.isArray(values)) return [];\n    return values.map(v => ({\n        time: new Date(v.datetime),\n        open: parseFloat(v.open),\n        high: parseFloat(v.high),\n        low: parseFloat(v.low),\n        close: parseFloat(v.close),\n    }));\n}\n\nfunction sortFn(a, b) {\n    return a.time - b.time;\n}\n\nconst items = $input.all();\nconst results = [];\n\nfor (const item of items) {\n    if (item.json.data && Array.isArray(item.json.data)) {\n        for (const dataItem of item.json.data) {\n            if (dataItem && dataItem.meta) {\n                results.push({\n                    json: {\n                        ticker: dataItem.meta.symbol,\n                        timeframe: dataItem.meta.interval,\n                        candles: normalize(dataItem.values).sort(sortFn)\n                    }\n                });\n            }\n            else if (dataItem && dataItem.data && Array.isArray(dataItem.data)) {\n                for (const nested of dataItem.data) {\n                    if (nested && nested.meta) {\n                        results.push({\n                            json: {\n                                ticker: nested.meta.symbol,\n                                timeframe: nested.meta.interval,\n                                candles: normalize(nested.values).sort(sortFn)\n                            }\n                        });\n                    }\n                }\n            }\n        }\n    }\n    else if (item.json.meta) {\n        results.push({\n            json: {\n                ticker: item.json.meta.symbol,\n                timeframe: item.json.meta.interval,\n                candles: normalize(item.json.values).sort(sortFn)\n            }\n        });\n    }\n}\n\nif (results.length === 0) {\n    return [{ json: { error: 'Could not process candle data', debug: JSON.stringify(items[0]?.json).substring(0, 500) } }];\n}\n\nreturn results;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        192
+      ],
+      "id": "78a28c54-719f-4b6b-8d9b-c26e98ad7bb9",
+      "name": "Process Candle Data"
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputData = $input.all();\nlet result = {};\n\nfunction safeGet(obj, path, defaultValue = null) {\n    try {\n        return path.split('.').reduce((o, p) => o && o[p], obj) ?? defaultValue;\n    } catch {\n        return defaultValue;\n    }\n}\n\ninputData.forEach(item => {\n    const data = item.json;\n    if (data.dividends) {\n        result.dividends = {\n            data: data.dividends,\n            count: data.dividends?.length || 0,\n            latest: data.dividends?.[0] || null,\n            annualDividend: calculateAnnualDividend(data.dividends)\n        };\n    }\n    if (data.earnings) {\n        result.earnings = {\n            data: data.earnings,\n            latest: data.earnings?.[0] || null,\n            epsGrowth: calculateEPSGrowth(data.earnings)\n        };\n    }\n    if (data.statistics) {\n        result.statistics = {\n            peRatio: safeGet(data, 'statistics.valuations_metrics.pe_ratio'),\n            pegRatio: safeGet(data, 'statistics.valuations_metrics.peg_ratio'),\n            priceToBook: safeGet(data, 'statistics.valuations_metrics.pb_ratio'),\n            roe: safeGet(data, 'statistics.financials_metrics.return_on_equity'),\n            roa: safeGet(data, 'statistics.financials_metrics.return_on_assets'),\n            debtToEquity: safeGet(data, 'statistics.financials_metrics.debt_equity_ratio'),\n            currentRatio: safeGet(data, 'statistics.financials_metrics.current_ratio'),\n            dividendYield: safeGet(data, 'statistics.financials_metrics.dividend_yield')\n        };\n    }\n    if (data.symbol || data.name) {\n        result.profile = {\n            symbol: data.symbol,\n            name: data.name,\n            country: data.country,\n            sector: data.sector,\n            industry: data.industry,\n            website: data.website,\n            description: data.description\n        };\n    }\n});\n\nfunction calculateAnnualDividend(dividends) {\n    if (!dividends || dividends.length === 0) return 0;\n    const oneYearAgo = new Date();\n    oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);\n    return dividends\n        .filter(d => new Date(d.ex_date) >= oneYearAgo)\n        .reduce((sum, d) => sum + parseFloat(d.amount || 0), 0);\n}\n\nfunction calculateEPSGrowth(earnings) {\n    if (!earnings || earnings.length < 2) return null;\n    const latest = parseFloat(earnings[0]?.eps_estimate || earnings[0]?.eps_actual || 0);\n    const previous = parseFloat(earnings[1]?.eps_estimate || earnings[1]?.eps_actual || 0);\n    if (previous === 0) return null;\n    return ((latest - previous) / previous) * 100;\n}\n\nfunction calculateLongTermMetrics() {\n    const metrics = {};\n    if (result.statistics?.dividendYield) {\n        metrics.dividendYield = parseFloat(result.statistics.dividendYield);\n    }\n    let expectedReturn = 0;\n    let returnComponents = [];\n    if (metrics.dividendYield) {\n        expectedReturn += metrics.dividendYield;\n        returnComponents.push(`Dividend Yield: ${metrics.dividendYield.toFixed(2)}%`);\n    }\n    if (result.earnings?.epsGrowth && result.earnings.epsGrowth > 0) {\n        const growthContribution = Math.min(result.earnings.epsGrowth, 15);\n        expectedReturn += growthContribution;\n        returnComponents.push(`Earnings Growth: ${growthContribution.toFixed(2)}%`);\n    }\n    if (result.statistics?.peRatio) {\n        const pe = parseFloat(result.statistics.peRatio);\n        if (pe > 0) {\n            let valuationAdjustment = 0;\n            if (pe < 15) valuationAdjustment = 2;\n            else if (pe > 25) valuationAdjustment = -3;\n            expectedReturn += valuationAdjustment;\n            if (valuationAdjustment !== 0) {\n                returnComponents.push(`Valuation Adjustment: ${valuationAdjustment.toFixed(2)}%`);\n            }\n        }\n    }\n    metrics.expectedAnnualReturn = Math.max(0, expectedReturn);\n    metrics.returnComponents = returnComponents;\n    return metrics;\n}\n\nresult.longTermMetrics = calculateLongTermMetrics();\n\nreturn [{\n    json: {\n        fundamentalAnalysis: result,\n        stockSymbol: result.profile?.symbol || 'Unknown',\n        stockName: result.profile?.name || 'Unknown Company'\n    }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        864
+      ],
+      "id": "094d9d63-8777-492a-bc43-c470f4419740",
+      "name": "Process Long-term Metrics"
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1248,
+        848
+      ],
+      "id": "2ba7c01c-ccd5-40f1-b63b-696baff03276",
+      "name": "Merge Data & Sentiment & Fundamentals"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        1472,
+        864
+      ],
+      "id": "41e024e2-0d8f-4256-a8c4-5ef357b9d57c",
+      "name": "Aggregate Final Data"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an expert financial analyst. Provide comprehensive trading and investment recommendations in the exact format below:\n\n### COMPANY INFORMATION\n- Stock Name: <Company Name>\n- Stock Symbol: <Symbol>\n- Sector: <Sector>\n- Industry: <Industry>\n\n### SHORT-TERM TRADING (Day Trading)\n- Technical Recommendation: `<BUY|SELL|HOLD>`\n- Entry Price: `<number or N/A>`\n- Stop-Loss: `<number or N/A>`\n- Target/Exit Price: `<number or N/A>`\n- Trading Rationale: <Brief explanation>\n\n### LONG-TERM INVESTMENT (1+ Years)\n- Investment Recommendation: `<BUY|HOLD|AVOID>`\n- Current Dividend Yield: `<percentage or N/A>`\n- Expected Annual Return: `<percentage>`\n- P/E Ratio: `<number or N/A>`\n- Key Strengths: <List 2-3 strengths>\n- Key Risks: <List 2-3 risks>\n- Investment Rationale: <Detailed explanation>\n\n### OVERALL ASSESSMENT\n- Risk Level: `<LOW|MEDIUM|HIGH>`\n- Time Horizon Preference: `<SHORT-TERM|LONG-TERM|BOTH>`\n- Final Summary: <Comprehensive summary>\\n\\n=You are an expert financial analyst providing both day trading and long-term investment recommendations. Using the comprehensive data below, provide both short-term trading advice and long-term investment analysis.\n\nDATA SOURCES:\n- Technical Data (candles): {{ JSON.stringify ($json.data[0]) }}\n- Sentiment Analysis (past 24h): {{ JSON.stringify ($json.data[1]) }}\n- Fundamental Analysis (long-term): {{ JSON.stringify ($json.data[2]) }}\n\nINSTRUCTIONS:\n1. Analyze technical data for short-term trading (1m, 15m, 1h timeframes)\n2. Factor in sentiment for immediate market reaction\n3. Use fundamental data for long-term investment assessment\n4. Include dividend analysis, earnings growth, and valuation metrics\n5. Calculate expected annual return based on fundamentals\n\nThe fundamental data includes:\n- Company profile (name, sector, industry)\n- Dividend information and yield\n- Earnings data and growth\n- Financial ratios (P/E, ROE, debt-to-equity, etc.)\n- Expected annual return calculation\n\nProvide comprehensive analysis covering both timeframes."
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.4,
+      "position": [
+        1744,
+        864
+      ],
+      "id": "115e65ed-5cc8-4782-8f50-1eeeef8e0270",
+      "name": "AI Financial Analyst"
+    },
+    {
+      "parameters": {
+        "model": "llama3-70b-8192",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        1696,
+        1088
+      ],
+      "id": "436c0388-1f71-4720-bafd-71532749c965",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "groq-credential",
+          "name": "Groq Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputData = $input.all();\n\nlet articlesText = '';\ntry {\n    for (const item of inputData) {\n        const data = item.json.data || item.json;\n        if (Array.isArray(data)) {\n            for (const article of data) {\n                if (article.title) articlesText += article.title + '. ';\n                if (article.description) articlesText += article.description + ' ';\n            }\n        } else if (typeof data === 'object') {\n            if (data.title) articlesText += data.title + '. ';\n            if (data.description) articlesText += data.description + ' ';\n            if (data.articles && Array.isArray(data.articles)) {\n                for (const a of data.articles) {\n                    if (a.title) articlesText += a.title + '. ';\n                    if (a.description) articlesText += a.description + ' ';\n                }\n            }\n        }\n    }\n    if (articlesText.length < 50) {\n        articlesText = JSON.stringify(inputData.map(i => i.json)).substring(0, 3000);\n    }\n} catch (e) {\n    articlesText = JSON.stringify(inputData.map(i => i.json)).substring(0, 3000);\n}\n\nconst GROQ_API_KEY = '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';\n\nconst requestBody = {\n    model: 'llama3-70b-8192',\n    messages: [\n        {\n            role: 'system',\n            content: 'You are a highly intelligent and accurate sentiment analyzer specializing in financial markets. Analyze the sentiment of the provided news articles. Determine a sentiment category: Positive, Neutral, or Negative. Calculate a numerical score between -1 (extremely negative) and 1 (extremely positive). Provide a concise rationale. Your output must be exactly a JSON object with three keys: category, score, and rationale. Do not output any additional text or markdown.'\n        },\n        {\n            role: 'user',\n            content: 'Analyze the sentiment of the following news articles:\\n' + articlesText.substring(0, 4000)\n        }\n    ],\n    response_format: { type: 'json_object' }\n};\n\ntry {\n    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {\n        method: 'POST',\n        headers: {\n            'Authorization': 'Bearer ' + GROQ_API_KEY,\n            'Content-Type': 'application/json'\n        },\n        body: JSON.stringify(requestBody)\n    });\n\n    const result = await response.json();\n    const content = result.choices?.[0]?.message?.content || '{}';\n    \n    let sentiment;\n    try {\n        let cleanContent = content;\n        if (cleanContent.startsWith('```json')) {\n            cleanContent = cleanContent.replace(/^```json\\n/, '').replace(/\\n```$/, '');\n        }\n        sentiment = JSON.parse(cleanContent);\n    } catch {\n        sentiment = { category: 'Neutral', score: 0, rationale: content };\n    }\n\n    return [{ json: sentiment }];\n} catch (error) {\n    return [{ json: { category: 'Neutral', score: 0, rationale: 'Sentiment analysis failed: ' + error.message } }];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        896,
+        1232
+      ],
+      "id": "0899140c-73ca-482c-91be-35319b754d6f",
+      "name": "Sentiment Analysis"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {
+          "userIds": "1524563156"
+        }
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -672,
+        704
+      ],
+      "id": "8c415a47-d48c-46b3-ab7b-fcb61ed50abd",
+      "name": "Telegram Trigger",
+      "webhookId": "stock-analysis-bot-webhook",
+      "credentials": {
+        "telegramApi": {
+          "id": "SLsN8fapokXPUbkB",
+          "name": "Telegram account Stocks"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{$('Telegram Trigger').item.json.message.chat.id}}",
+        "text": "={{$json.text}}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2050,
+        864
+      ],
+      "id": "edd4d74d-d161-4ab6-b339-2bbe90cf929f",
+      "name": "Send Telegram Message",
+      "webhookId": "stock-analysis-telegram-tool",
+      "credentials": {
+        "telegramApi": {
+          "id": "SLsN8fapokXPUbkB",
+          "name": "Telegram account Stocks"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        672,
+        1232
+      ],
+      "id": "b41d259c-00fb-4634-b519-6078d9d608ca",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "url": "=https://news.google.com/rss/search?q= {{ $json.message.text }}%20when%3A1d&hl=en-US&gl=US&ceid=US%3Aen",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        240,
+        1248
+      ],
+      "id": "5f9bcd67-48e0-46b2-ac9f-e7965671e0fa",
+      "name": "Google News"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.xml",
+      "typeVersion": 1,
+      "position": [
+        256,
+        1456
+      ],
+      "id": "ec749e52-5737-4fbd-9f69-9880aaea90a4",
+      "name": "XML"
+    },
+    {
+      "parameters": {
+        "jsCode": "const newsData = $input.all();\n\nasync function fetchArticleContent(url) {\n    try {\n        const response = await fetch(url);\n        if (!response.ok) return null;\n        const html = await response.text();\n        const parser = new DOMParser();\n        const doc = parser.parseFromString(html, 'text/html');\n        const selectors = ['.article-body', '.post-content', '.story-body', 'article', 'main'];\n        let articleText = '';\n        for (const selector of selectors) {\n            const elements = doc.querySelectorAll(selector);\n            if (elements.length > 0) {\n                elements.forEach(el => articleText += ' ' + el.textContent);\n                break;\n            }\n        }\n        if (articleText.length < 100) {\n            doc.querySelectorAll('p').forEach(p => {\n                const text = p.textContent.trim();\n                if (text.length > 50) articleText += ' ' + text;\n            });\n        }\n        return articleText.replace(/\\s+/g, ' ').trim();\n    } catch (error) {\n        return null;\n    }\n}\n\nasync function processArticles() {\n    const results = [];\n    for (const item of newsData) {\n        const articles = item.json.rss.channel.item;\n        if (articles && Array.isArray(articles)) {\n            for (const article of articles) {\n                results.push({\n                    json: {\n                        title: article.title,\n                        description: article.description.replace(/<[^>]*>/g, '').trim(),\n                        source: article.source?._ || '',\n                        pubDate: article.pubDate,\n                        link: article.link\n                    }\n                });\n            }\n        }\n    }\n    return results;\n}\n\nreturn processArticles().catch(error => {\n    return [{ json: { error: 'Could not fetch news contents' } }];\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        528,
+        1424
+      ],
+      "id": "60a9dba7-39cb-42fa-a253-591aca2fade8",
+      "name": "generate summary of news links"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "HTTP 1 Minutes": {
+      "main": [
+        [
+          {
+            "node": "Merge Timeframes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP 15 Minutes": {
+      "main": [
+        [
+          {
+            "node": "Merge Timeframes",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "HTTP 1 Hour": {
+      "main": [
+        [
+          {
+            "node": "Merge Timeframes",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "News API": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Dividends": {
+      "main": [
+        [
+          {
+            "node": "Merge Fundamentals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Earnings": {
+      "main": [
+        [
+          {
+            "node": "Merge Fundamentals",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "HTTP Statistics": {
+      "main": [
+        [
+          {
+            "node": "Merge Fundamentals",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "HTTP Profile": {
+      "main": [
+        [
+          {
+            "node": "Merge Fundamentals",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Merge Fundamentals": {
+      "main": [
+        [
+          {
+            "node": "Aggregate Fundamentals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate Fundamentals": {
+      "main": [
+        [
+          {
+            "node": "Process Long-term Metrics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Long-term Metrics": {
+      "main": [
+        [
+          {
+            "node": "Merge Data & Sentiment & Fundamentals",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Merge Timeframes": {
+      "main": [
+        [
+          {
+            "node": "Aggregate Price Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate Price Data": {
+      "main": [
+        [
+          {
+            "node": "Process Candle Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Candle Data": {
+      "main": [
+        [
+          {
+            "node": "Merge Data & Sentiment & Fundamentals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Data & Sentiment & Fundamentals": {
+      "main": [
+        [
+          {
+            "node": "Aggregate Final Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate Final Data": {
+      "main": [
+        [
+          {
+            "node": "AI Financial Analyst",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sentiment Analysis": {
+      "main": [
+        [
+          {
+            "node": "Merge Data & Sentiment & Fundamentals",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP 1 Minutes",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP 15 Minutes",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP 1 Hour",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Dividends",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Earnings",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Statistics",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Profile",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Google News",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "News API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Sentiment Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google News": {
+      "main": [
+        [
+          {
+            "node": "XML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "XML": {
+      "main": [
+        [
+          {
+            "node": "generate summary of news links",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "generate summary of news links": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Financial Analyst": {
+      "main": [
+        [
+          {
+            "node": "Send Telegram Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Financial Analyst",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "4252d869-f93d-4d5a-85f6-8a5462c07a7d"
+}
